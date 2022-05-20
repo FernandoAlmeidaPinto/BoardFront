@@ -1,0 +1,19 @@
+<div 
+class="card w-full" >
+  <div class="bg-white rounded-lg shadow divide-y divide-gray-200 mb-2">
+    <button (click)="toggle()"
+    class="w-full 
+    flex  
+    justify-between 
+    flex-col 
+    p-1 rounded-lg 
+    border-t-8 
+    border-[{{card.problema.cor}}]">
+    <div class="flex flex-wrap card_label justify-between">
+      <!-- <div class="ml-2 w-6 h-2 rounded-lg" *ngFor="let label of card.label" 
+        style="background-color: {{getColorLabel(1)}}"></div>
+      </div> -->
+      <div class="py-2">{{card.titulo}}</div>
+    </div>
+  </button>
+</div>

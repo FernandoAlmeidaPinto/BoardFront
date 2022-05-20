@@ -1,0 +1,12 @@
+.active-link {
+  background-color: rgb(67 56 202);;
+}
+
+.menu-user {
+  display: none;
+}
+
+.menutopcolor {
+  background-color: var(--primary-color-tema1, blue);
+}
+
