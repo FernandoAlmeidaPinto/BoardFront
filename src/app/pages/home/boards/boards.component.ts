@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { IBoard, BoardsService } from 'src/app/service/boards.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/service/auth.service';
+import { socket, connect } from 'src/app/service/socket';
+
 
 @Component({
   selector: 'app-boards',
@@ -13,19 +16,17 @@ export class BoardsComponent implements OnInit {
   descricao: string = ''
   listaBoards: IBoard[] = []
 
-  constructor(private boardService: BoardsService, private route: Router) { 
-    this.boardService.ListarBoards().subscribe(res => {
+  constructor(private boardService: BoardsService, private route: Router, private auth: AuthService) {
+    connect(this.auth.getToken())
+    this.boardService.ListarBoards().then(res => {
       this.listaBoards = res
-    }, error => {
-      if(error.status === 401) {
-        window.localStorage.clear()
-        this.route.navigate(['/login'])
-      }
     })
   }
-
+  
   ngOnInit(): void {
-    
+    socket.on('AtualizaBoards', data => {
+      this.listaBoards = data
+  })
   }
 
   Add(){
@@ -50,11 +51,10 @@ export class BoardsComponent implements OnInit {
   
 
   EntrarBoard(id: string){
-    this.boardService.ListaBoard(id)
+    this.boardService.GetBoard(id)
     setTimeout(()=>{
       this.route.navigate([`home/board/${id}`])
     }, 100)
   }
-
   
 }
