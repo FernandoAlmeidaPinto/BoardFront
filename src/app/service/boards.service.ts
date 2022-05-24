@@ -67,7 +67,7 @@ export class BoardsService {
    }
 
   ListarBoards() {
-    const token = window.localStorage.getItem(tokenkey)
+    const token = this.auth.getToken()
     return this.HttpCliente.get<IBoard[]>(api.concat(`/board`), {
       headers: {
         "Authorization": `Bearer ${token}`
