@@ -1,5 +1,5 @@
 <div>
-    <ul role="list" class="mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <ul role="list" class="mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4 mt-32 md:mt-2">
       <li class="col-span-1 flex shadow-sm rounded-md" *ngFor="let item of listaBoards">
         <button (click)="EntrarBoard(item._id)" class="flex w-full">
           <div 
@@ -26,10 +26,10 @@
       </li>
     </ul>
   </div>
-  <form class="modal grid grid-cols-3 gap-4" *ngIf="modal" (ngSubmit)="CriarBoard()">
+  <form class="modal grid grid-cols-3 gap-4 w-1/2" *ngIf="modal" (ngSubmit)="CriarBoard()">
     <div class="col-span-3 flex flex-col">
       <label for="titulo">Titulo</label>
-      <input id="titulo" type="text" class="titulo input_board" name="titulo" [(ngModel)]="titulo" />
+      <input id="titulo" type="text" class="titulo" name="titulo" [(ngModel)]="titulo" />
     </div>
     <div class="col-span-3 flex flex-col">
       <label for="descricao">descrição</label>
@@ -39,9 +39,8 @@
       (change)="descricao = textbox.value" 
       id="descricao" 
       type="text" 
-      cols="30"
       rows="5"
-      class="descricao input_board"></textarea>
+      class="descricao"></textarea>
     </div>
     <button class="col-span-2 button_salvar" type="submit">
       Salvar

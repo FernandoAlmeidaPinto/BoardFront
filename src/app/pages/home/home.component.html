@@ -9,7 +9,7 @@
           <div class="hidden md:block">
             <div class="ml-10 flex items-baseline space-x-4">
               <!-- Current: "bg-indigo-700 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" -->
-              <a *ngFor="let item of menuSuperior" routerLink={{item.href}} routerLinkActive='active-link' class="hover:bg-indigo-500 hover:bg-opacity-75 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">{{item.nome}}</a>
+              <a *ngFor="let item of menuSuperior" routerLink={{item.href}} [routerLinkActiveOptions]="{exact: true}" routerLinkActive='active-link' class="menuSuperiorItem text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">{{item.nome}}</a>
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { tokenkey } from '../guard/auth.guard';
-import { BoardModel } from '../pages/home/board/board.model';
 import { api } from './api';
 import { AuthService } from './auth.service';
 
@@ -61,21 +61,26 @@ export interface IUser {
 export class BoardsService {
 
   board: IBoard
+  MinhaListaBoard: IBoard[]
 
-  constructor(private HttpCliente: HttpClient, private auth: AuthService) {
+  constructor(private HttpCliente: HttpClient, private auth: AuthService, private route: Router) {
     
    }
 
-  ListarBoards() {
+  async ListarBoards(): Promise<IBoard[]> {
     const token = this.auth.getToken()
-    return this.HttpCliente.get<IBoard[]>(api.concat(`/board`), {
+    const res = this.HttpCliente.get<IBoard[]>(api.concat(`/board`), {
       headers: {
         "Authorization": `Bearer ${token}`
       }
+    }).toPromise()
+    res.then(data => {
+      this.MinhaListaBoard = data
     })
+    return res
   }
 
-  ListaBoard(id: string) {
+  GetBoard(id: string) {
     const token = window.localStorage.getItem(tokenkey)
     const board = this.HttpCliente.get<IBoard>(api.concat(`/board/${id}`), {
       headers: {

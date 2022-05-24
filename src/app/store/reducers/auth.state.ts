@@ -2,24 +2,21 @@ import { createReducer, on } from "@ngrx/store"
 import { loginAction } from "../actions/authActions/actions"
 
 export interface UserTypeState {
-  id: number,
-    email: string,
+  _id: number,
+  email: string,
+  nome: string,
+  sobrenome: string,
+  cargo: {
+    _id: number,
     nome: string,
-    sobrenome: string,
-    cargo: {
-      id: number,
-      nome: string,
-      descricao: string
-    },
-    time: {
-      id: number,
-      nome: string,
-      descricao: string
-    },
-    area: {
-      id: number,
-      nome: string,
-      descricao: string
+  },
+  time: {
+    _id: number,
+    nome: string,
+  },
+  area: {
+    _id: number,
+    nome: string,
   }
 }
 
@@ -29,24 +26,21 @@ export interface UserType {
 }
 
 export const authInitialState: UserTypeState = {
-  id: 0,
+  _id: 0,
   email: '',
   nome: '',
   sobrenome: '',
   cargo: {
-    id: 0,
+    _id: 0,
     nome: '',
-    descricao: ''
   },
   time: {
-    id: 0,
+    _id: 0,
     nome: '',
-    descricao: ''
   },
   area: {
-    id: 0,
+    _id: 0,
     nome: '',
-    descricao: ''
   }
 }
 

@@ -1,5 +1,5 @@
 .active-link {
-  background-color: rgb(67 56 202);;
+  background-color: var(--gray-color-700)
 }
 
 .menu-user {
@@ -7,6 +7,10 @@
 }
 
 .menutopcolor {
-  background-color: var(--primary-color-tema1, blue);
+  background-color: var(--gray-color-800, blue);
 }
 
+.menuSuperiorItem:hover {
+  background-color: var(--gray-color-900);
+
+}
