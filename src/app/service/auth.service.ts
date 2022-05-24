@@ -29,8 +29,4 @@ export class AuthService {
     this.route.navigate(['/login'])
     return ''
   }
-
-  CleanLogin(){
-    window.localStorage.clear()
-  }
 }
