@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { authInitialState, UserType, UserTypeState } from 'src/app/store/reducers/auth.state';
-import { map } from 'rxjs/operators'
+import { UserTypeState } from 'src/app/store/reducers/auth.state';
 
 interface MenuType {
   nome: string,
@@ -16,7 +15,7 @@ interface MenuType {
 export class HomeComponent implements OnInit {
 
   menuSuperior: MenuType[] = [
-    {nome: 'Inicio', href: ''},
+    {nome: 'Inicio', href: '/home'},
     {nome: 'Boards', href: '/home/boards'},
     {nome: 'Time', href: '#'},
     {nome: 'Calendario', href: '#'},
@@ -30,28 +29,7 @@ export class HomeComponent implements OnInit {
 
   displayMenuUser = 'hidden'
 
-  user: UserTypeState = {
-    id: 0,
-    nome: '',
-    sobrenome: '',
-    email: '',
-    area: {
-      id: 0,
-      nome: '',
-      descricao: '',
-    },
-    cargo: {
-      id: 0,
-      nome: '',
-      descricao: '',
-    },
-    time: {
-      id: 0,
-      nome: '',
-      descricao: '',
-    }
-
-  };
+  user: UserTypeState  
 
   constructor(private store: Store<{ auth: UserTypeState}>) { 
     this.store.select('auth').subscribe(e => { this.user = e }) 

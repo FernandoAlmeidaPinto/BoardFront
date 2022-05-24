@@ -1,13 +1,13 @@
 <div id="board" draggable="false">
 
-  <div draggable="false" class="w-screen fixed flex justify-between items-center mr-20 sm:px-6 lg:px-8">
+  <div draggable="false" class="w-screen relative flex justify-between items-center mr-20 sm:px-6 lg:px-8 mt-28 md:mt-2">
     <h1 class="text-lg leading-6 font-semibold text-gray-900">{{this.board.titulo}}</h1>
     <button (click)="toggle()" class="bg-gray-200 rounded-md my-2 mx-10 items-start w-40 h-10">
       Add Lista
     </button>
   </div>
 
-  <div class="flex allListas w-screen pt-16" 
+  <div class="flex allListas w-screen pt-3 relative" 
   (dragover)="allowDrop($event)" 
   (dragenter)="allowDrop($event)" 
   (drop)="drop($event)">
@@ -30,7 +30,7 @@
 
 <!-- Modal Lista -->
 
-<form draggable="false" id="modalLista" class="modal" *ngIf="AddListModal" (ngSubmit)="CriarLista()">
+<form draggable="false" id="modalLista" class="modal w-1/2" *ngIf="AddListModal" (ngSubmit)="CriarLista()">
   <div class="flex flex-col">
     <label for="titulo">Titulo</label>
     <input id="titulo" type="text" class="titulo input_board" name="titulo" [(ngModel)]="tituloLista" />
