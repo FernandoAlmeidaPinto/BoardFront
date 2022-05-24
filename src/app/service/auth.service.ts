@@ -14,7 +14,7 @@ export class AuthService {
   constructor(private HttpCliente: HttpClient, private route: Router) {}
 
   login(email: string, password: string){
-    return this.HttpCliente.post<UserType>(api.concat('/auth/login'), {
+    return this.HttpCliente.post<UserType>(api.concat('/login'), {
       email: email,
       password: password
     })
