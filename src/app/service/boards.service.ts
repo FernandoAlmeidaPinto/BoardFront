@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { tokenkey } from '../guard/auth.guard';
 import { api } from './api';
 import { AuthService } from './auth.service';
 
@@ -81,7 +80,7 @@ export class BoardsService {
   }
 
   GetBoard(id: string) {
-    const token = window.localStorage.getItem(tokenkey)
+    const token = this.auth.getToken()
     const board = this.HttpCliente.get<IBoard>(api.concat(`/board/${id}`), {
       headers: {
         "Authorization": `Bearer ${token}`
