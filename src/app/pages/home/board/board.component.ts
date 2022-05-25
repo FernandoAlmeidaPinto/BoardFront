@@ -1,6 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { BoardsService, IBoard, ILista, IProblema} from 'src/app/service/boards.service';
 import { ListaService } from 'src/app/service/lista.service';
+import { socket } from 'src/app/service/socket';
 
 @Component({
   selector: 'app-board',
@@ -15,8 +16,17 @@ export class BoardComponent implements OnInit {
 
   constructor(private boardService: BoardsService, private listService: ListaService) {
     this.board = JSON.parse(window.localStorage.getItem('board') || '').board
+    this.boardService.GetBoard(this.board._id)   
   }
   ngOnInit(): void {
+    socket.on('AtualizaListas', (lista: ILista) => {
+      console.log('AtualizaListas')
+      this.board.listas.push(lista)
+      window.localStorage.setItem('board', JSON.stringify({
+        id: this.board._id,
+        board: this.board
+      }))
+    })
   }
 
   allowDrop(ev: any) {
@@ -147,14 +157,14 @@ export class BoardComponent implements OnInit {
     if(this.tituloLista != '' && this.tituloLista != undefined){
       this.listService.CriarLista(this.tituloLista, this.board._id).subscribe(res => {
         this.board.listas.push(res)
+        window.localStorage.setItem('board', JSON.stringify({
+          id: this.board._id,
+          board: this.board
+        }))
       }, err => {
         console.log(err)
       })
       this.toggle()
-      window.localStorage.setItem('board', JSON.stringify({
-        id: this.board._id,
-        board: this.board
-      }))
     }
   }
 
