@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { RemoveElementLista } from '../utils/Arrays';
 import { api } from './api';
 import { AuthService } from './auth.service';
-import { ILista } from './boards.service';
+import { IBoard, ILista } from './boards.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,21 @@ export class ListaService {
       }
     })
   }
+
+  DeletaLista(listaId: string) {
+    const token = this.auth.getToken()
+    const res = this.HttpClient.delete<string>(api.concat(`/lista/${listaId}`), {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    })
+    res.subscribe(res => {
+      console.log('Lista Deletada')
+      }, err => {
+        console.error(err)
+      })
+  }
+
+  
 
 }

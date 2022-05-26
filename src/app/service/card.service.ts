@@ -11,12 +11,11 @@ export class CardService {
 
   constructor(private HttpClient: HttpClient, private auth: AuthService) { }
 
-  CriarCard(titulo: string, problema_id: string, inicio: Date, previsao: Date, lista_id: string){
+  CriarCard(titulo: string, projeto_id: string, inicio: Date, previsao: Date, lista_id: string){
     const token = this.auth.getToken()
-    let returnCard: ICard
-    return this.HttpClient.post<ICard>(api.concat('/card'), {
+    const res = this.HttpClient.post<ICard>(api.concat('/card'), {
       titulo: titulo,
-      problema_id: problema_id,
+      projeto_id: projeto_id,
       dataInicio: inicio,
       dataPrevisao: previsao,
       lista_id: lista_id
@@ -24,6 +23,24 @@ export class CardService {
       headers: {
         "Authorization": `Bearer ${token}`
       }
+    })
+
+    res.subscribe(card => {
+      const boardString = window.localStorage.getItem('board')
+      if(boardString){
+        const local: {id: string, board: IBoard} = JSON.parse(boardString)
+        local.board.listas.map(lista => {
+          if(lista._id === lista_id){
+            lista.cards.push(card)
+          }
+        })
+        window.localStorage.setItem('board',  JSON.stringify({
+          id: local.board._id,
+          board: local.board
+        }))
+      }
+    }, error => {
+      console.log(error)
     })
   }
 

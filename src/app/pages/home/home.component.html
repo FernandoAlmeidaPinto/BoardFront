@@ -37,9 +37,16 @@
                   <div class="h-8 w-8 bg-rose-500 rounded-full flex justify-center items-center text-xl text-white font-mono" >F</div>
                 </button>
               </div>
-              <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none {{displayMenuUser}}" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+              <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none {{displayMenuUser}} z-50" 
+              role="menu" 
+              aria-orientation="vertical" 
+              aria-labelledby="user-menu-button" 
+              tabindex="-1">
                 <!-- Active: "bg-gray-100", Not Active: "" -->
-                <a *ngFor="let item of menuUser" href={{item.href}} class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100" role="menuitem" tabindex="-1" id="user-menu-item-0">{{item.nome}}</a>
+                <a *ngFor="let item of menuUser" href={{item.href}} class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100" 
+                role="menuitem" 
+                tabindex="-1" 
+                id="user-menu-item-0">{{item.nome}}</a>
               </div>
             </div>
           </div>

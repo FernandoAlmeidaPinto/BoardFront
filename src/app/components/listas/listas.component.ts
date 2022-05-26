@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BoardsService, IBoard, ICard, ILista, IProblema } from 'src/app/service/boards.service';
+import { ILista, IProjeto } from 'src/app/service/boards.service';
 import { CardService } from 'src/app/service/card.service';
+import { ListaService } from 'src/app/service/lista.service';
 
 @Component({
   selector: 'app-listas',
@@ -11,17 +12,19 @@ export class ListasComponent implements OnInit {
   modal: boolean = false
 
   @Input() lista: ILista
-  @Input() problemas: IProblema[]
+  @Input() projetos: IProjeto[]
 
   timeElapsed = Date.now();
   today = new Date(this.timeElapsed);
 
   tituloCard: string = ''
-  problema_id_card: string = ''
+  projeto_id_card: string = ''
   dataInicio: Date
   dataPrevisao: Date
+
+  displayMenuUser = 'hidden'
   
-  constructor(private board: BoardsService, private cardService: CardService) {}
+  constructor(private cardService: CardService, private listaService: ListaService) {}
   
   ngOnInit(): void {}
 
@@ -38,25 +41,8 @@ export class ListasComponent implements OnInit {
   }
 
   CriaCard(){
-    if(this.tituloCard && this.problema_id_card && this.dataInicio && this.dataPrevisao){
-      this.cardService.CriarCard(this.tituloCard, this.problema_id_card, this.dataInicio, this.dataPrevisao, this.lista._id).subscribe(card => {
-        const boardString = window.localStorage.getItem('board')
-        if(boardString){
-          const local: {id: string, board: IBoard} = JSON.parse(boardString)
-          local.board.listas.map(lista => {
-            if(lista._id === this.lista._id){
-              lista.cards.push(card)
-              this.lista.cards.push(card)
-            }
-          })
-          window.localStorage.setItem('board',  JSON.stringify({
-            id: local.board._id,
-            board: local.board
-          }))
-        }
-      }, error => {
-        console.log(error)
-      })
+    if(this.tituloCard && this.projeto_id_card && this.dataInicio && this.dataPrevisao){
+      this.cardService.CriarCard(this.tituloCard, this.projeto_id_card, this.dataInicio, this.dataPrevisao, this.lista._id)
       this.toogle()
     }
   }
@@ -87,6 +73,18 @@ export class ListasComponent implements OnInit {
         fundo.style.pointerEvents = 'all'
       }
     }
+  }
+
+  changeMenu(){
+    if(this.displayMenuUser == '') {
+      this.displayMenuUser = 'hidden'
+    } else {
+      this.displayMenuUser = ''
+    }
+  }
+
+  deletaLista() {
+    this.listaService.DeletaLista(this.lista._id)
   }
 
 }

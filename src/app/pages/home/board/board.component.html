@@ -1,13 +1,11 @@
 <div id="board" draggable="false">
 
-  <div draggable="false" class="w-screen relative flex justify-between items-center mr-20 sm:px-6 lg:px-8 mt-28 md:mt-2">
+  <div draggable="false" class="block w-screen flex justify-between items-center mr-20 sm:px-6 lg:px-8 mt-28 md:mt-2">
     <h1 class="text-lg leading-6 font-semibold text-gray-900">{{this.board.titulo}}</h1>
-    <button (click)="toggle()" class="bg-gray-200 rounded-md my-2 mx-10 items-start w-40 h-10">
-      Add Lista
-    </button>
+    
   </div>
 
-  <div class="flex allListas w-screen pt-3 relative" 
+  <div class="flex allListas w-screen pt-3" 
   (dragover)="allowDrop($event)" 
   (dragenter)="allowDrop($event)" 
   (drop)="drop($event)">
@@ -16,7 +14,7 @@
     id="lista_{{lista._id}}"
     *ngFor="let lista of this.board.listas" 
     [lista]="lista"
-    [problemas]="this.board.problemas"
+    [projetos]="this.board.projetos"
     draggable="true"  
     (dragstart)="DragStart($event)"
     (dragover)="allowDrop($event)"
@@ -24,7 +22,11 @@
     (dragend)="DragEnd($event)"
     (drop)="dropCard($event)"
     ></app-listas>
-    
+    <div>
+      <button (click)="toggle()" class="bg-gray-200 rounded-lg mx-5 my-2 w-40 h-10">
+      Add Lista
+      </button>
+    </div>
   </div>
 </div>
 

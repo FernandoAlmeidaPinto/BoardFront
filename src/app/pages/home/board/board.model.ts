@@ -1,4 +1,4 @@
-import { IBoard, ILabel, ILista, IProblema, IUser } from "src/app/service/boards.service";
+import { IBoard, ILabel, ILista, IProjeto, IUser } from "src/app/service/boards.service";
 
 export class BoardModel implements IBoard {
     _id: string;
@@ -7,18 +7,8 @@ export class BoardModel implements IBoard {
     dono: IUser
     integrantes: IUser[];
     listas: ILista[];
-    problemas: IProblema[];
+    projetos: IProjeto[];
     labels: ILabel[];
-
-    /* constructor(board: BoardPage) {
-        this.id = board.id
-        this.nome = board.nome
-        this.descricao = board.descricao
-        this.dono = board.dono
-        this.listas = board.listas
-        this.problemas = board.problemas
-        this.labels = board.labels
-    } */
 
     constructor(){
 
@@ -30,7 +20,7 @@ export class BoardModel implements IBoard {
         this.descricao = board.descricao
         this.dono = board.dono
         this.listas = board.listas
-        this.problemas = board.problemas
+        this.projetos = board.projetos
         this.labels = board.labels
     }
 }

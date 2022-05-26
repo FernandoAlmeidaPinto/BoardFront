@@ -11,7 +11,7 @@ export interface IBoard {
   integrantes: IUser[]
   dono: IUser
   listas: ILista[]
-  problemas: IProblema[]
+  projetos: IProjeto[]
   labels: ILabel[]
 }
 
@@ -25,7 +25,7 @@ export interface ICard {
   _id: string
   titulo: string
   dono: IUser
-  problema: IProblema
+  projeto: IProjeto
   label: ILabel[]
   dataInicio: Date
   dataPrevisao: Date
@@ -38,7 +38,7 @@ export interface ILista {
   cards: ICard[]
 }
 
-export interface IProblema {
+export interface IProjeto {
   _id: string
   titulo: string
   descricao: string

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BoardsService, ICard, ILabel, IProblema } from 'src/app/service/boards.service';
+import { BoardsService, ICard, ILabel, IProjeto } from 'src/app/service/boards.service';
 
 @Component({
   selector: 'app-card',
@@ -10,7 +10,7 @@ export class CardComponent implements OnInit {
 
   modal: boolean = false
   @Input() card: ICard
-  @Input() problemas: IProblema[]
+  @Input() projetos: IProjeto[]
 
   constructor(private boardSevice: BoardsService) {
    }
