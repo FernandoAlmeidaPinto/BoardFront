@@ -5,30 +5,30 @@
     
   </div>
 
-  <div class="flex allListas w-screen pt-3" 
-  (dragover)="allowDrop($event)" 
-  (dragenter)="allowDrop($event)" 
-  (drop)="drop($event)">
-    <app-listas
-    class="draggble_list m-2 bg-gray-200 rounded-lg p-2 h-full"
-    id="lista_{{lista._id}}"
-    *ngFor="let lista of this.board.listas" 
-    [lista]="lista"
-    [projetos]="this.board.projetos"
-    draggable="true"  
-    (dragstart)="DragStart($event)"
-    (dragover)="allowDrop($event)"
-    (dragenter)="allowDrop($event)"
-    (dragend)="DragEnd($event)"
-    (drop)="dropCard($event)"
-    ></app-listas>
-    <div>
-      <button (click)="toggle()" class="bg-gray-200 rounded-lg mx-5 my-2 w-40 h-10">
-      Add Lista
-      </button>
+  <div class="flex h-full">
+    <div class="flex allListas h-full pt-3 " 
+    (dragover)="allowDrop($event)" 
+    (dragenter)="allowDrop($event)" 
+    (drop)="drop($event)">
+      <app-listas
+      class="draggble_list m-2 bg-gray-200 rounded-lg p-2 h-full"
+      id="lista_{{lista._id}}"
+      *ngFor="let lista of this.board.listas" 
+      [lista]="lista"
+      [projetos]="this.board.projetos"
+      draggable="true"  
+      (dragstart)="DragStart($event)"
+      (dragover)="allowDrop($event)"
+      (dragenter)="allowDrop($event)"
+      (dragend)="DragEnd($event)"
+      (drop)="dropCard($event)"
+      ></app-listas>
+    </div>
+    <button (click)="toggle()" class="bg-gray-200 rounded-lg mx-5 my-2 w-40 h-10">
+    Add Lista
+    </button>
     </div>
   </div>
-</div>
 
 <!-- Modal Lista -->
 

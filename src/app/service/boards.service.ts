@@ -59,7 +59,6 @@ export interface IUser {
 })
 export class BoardsService {
 
-  board: IBoard
   MinhaListaBoard: IBoard[]
 
   constructor(private HttpCliente: HttpClient, private auth: AuthService, private route: Router) {
@@ -75,6 +74,9 @@ export class BoardsService {
     }).toPromise()
     res.then(data => {
       this.MinhaListaBoard = data
+    }, err=> {
+      window.localStorage.clear()
+      this.route.navigate(['/login'])
     })
     return res
   }
@@ -92,6 +94,9 @@ export class BoardsService {
         id: id,
         board: board
       }))
+    }, err=> {
+      window.localStorage.clear()
+      this.route.navigate(['/login'])
     })
   }
 
@@ -137,10 +142,7 @@ export class BoardsService {
           })
         res.subscribe(res => {
             this.ChangePosition(local.board.listas, from, to)
-            window.localStorage.setItem('board',  JSON.stringify({
-              id: board,
-              board: local.board
-            }))
+            this.AtualizaLocalStorage(local.board)
         }, error => {
           window.localStorage.clear()
         })
@@ -153,7 +155,7 @@ export class BoardsService {
     return arr;
   };
 
-  MudarCard(listaRemove: string, listaAdd: string, card_id: string, to: number){
+  MudarCardLista(listaRemove: string, listaAdd: string, card_id: string, to: number){
     const token = this.auth.getToken()
     const body = {
       lista_remove_id: listaRemove,
@@ -169,7 +171,7 @@ export class BoardsService {
         }
       }
     )
-    res.subscribe(res => {
+    res.subscribe(r => {
       const boardJSON = localStorage.getItem('board')
       let cardJson: ICard
       if(boardJSON){
@@ -189,13 +191,39 @@ export class BoardsService {
             lista.cards.push(cardJson)
           }
         })
-        window.localStorage.setItem('board',  JSON.stringify({
-          id: local.id,
-          board: local.board
-        }))
+        this.AtualizaLocalStorage(local.board)
       }
     }, error => {
       window.localStorage.clear()
     })
   }
+
+  MudarCard(listaId: string, de: number, para: number){
+    if(listaId && de != undefined && para != undefined){
+      const token = this.auth.getToken()
+      const res = this.HttpCliente.post(api.concat(`/lista/card/`), {
+        listaId: listaId,
+        de: de,
+        para: para
+      }, {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      })
+      res.subscribe(r => {
+        console.log(r)
+      }, e=> {
+        console.log(e)
+        window.localStorage.clear()
+      })
+    }
+  }
+
+  AtualizaLocalStorage(board: IBoard) {
+    window.localStorage.setItem('board', JSON.stringify({
+      id: board._id,
+      board: board
+    }))
+  }
+
 }
