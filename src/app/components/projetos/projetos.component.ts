@@ -11,7 +11,7 @@ export class ProjetosComponent implements OnInit {
   @Input() projetos: IProjeto[]
   @Input() boardId: string
 
-  modal: boolean = true
+  modal: boolean = false
 
   timeElapsed = Date.now();
   today: Date = new Date(this.timeElapsed);
