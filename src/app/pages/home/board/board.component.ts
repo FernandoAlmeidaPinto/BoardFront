@@ -25,7 +25,7 @@ export class BoardComponent implements OnInit {
       this.boardService.AtualizaLocalStorage(this.board)
     })
 
-    socket.on("NotificaListaDeletada", (listaId:string) => {
+    socket.on("NotificaListaDeletada", (listaId: string) => {
       for(let i = 0; i < this.board.listas.length; i++) {
         if(this.board.listas[i]._id == listaId){
           this.board.listas.splice(i, 1)
@@ -34,14 +34,6 @@ export class BoardComponent implements OnInit {
       this.boardService.AtualizaLocalStorage(this.board)
     })
 
-    socket.on('NotificaCriacaoCard', (lista: ILista) => {
-      for(let i = 0; i < this.board.listas.length; i++){
-        if(this.board.listas[i]._id == lista._id){
-          this.board.listas[i] = lista
-        }
-      }
-      this.boardService.AtualizaLocalStorage(this.board)
-    })
     socket.on("NotificaTrocaLista", (listas: ILista[]) => {
       this.board.listas = listas
     })

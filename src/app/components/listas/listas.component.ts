@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
-import { BoardsService, IBoard, ILabel, ILista, IProjeto } from 'src/app/service/boards.service';
+import { BoardsService, IBoard, ICard, ILabel, ILista, IProjeto } from 'src/app/service/boards.service';
 import { CardService } from 'src/app/service/card.service';
 import { ListaService } from 'src/app/service/lista.service';
 import { socket } from 'src/app/service/socket';
@@ -28,6 +28,7 @@ export class ListasComponent implements OnInit {
   today = new Date(this.timeElapsed);
 
   tituloCard: string = ''
+  descricao: string = ''
   projeto_id_card: string = ''
   dataInicio: Date
   dataPrevisao: Date
@@ -61,7 +62,19 @@ export class ListasComponent implements OnInit {
         local.board.labels = this.labels
         this.boardService.AtualizaLocalStorage(local.board)
       }
-
+    })
+    socket.on('NotificaCriacaoCard', (card: ICard) => {
+      const boardJSON = localStorage.getItem('board')
+      if(boardJSON){
+        const local: {id: string, board: IBoard} = JSON.parse(boardJSON)
+        for(let i = 0; i < local.board.listas.length; i++){
+          if(local.board.listas[i]._id == this.lista._id){
+            local.board.listas[i].cards.push(card)
+            this.lista.cards.push(card)
+          }
+        }
+        this.boardService.AtualizaLocalStorage(local.board)
+      }
     })
   }
 
@@ -79,13 +92,32 @@ export class ListasComponent implements OnInit {
 
   CriaCard(){
     if(this.tituloCard && this.projeto_id_card && this.dataInicio && this.dataPrevisao){
-      this.cardService.CriarCard(this.tituloCard, this.projeto_id_card, this.dataInicio, this.dataPrevisao, this.lista._id)
+      this.cardService.CriarCard(this.tituloCard, this.descricao, this.projeto_id_card, this.dataInicio, this.dataPrevisao, this.lista._id).subscribe(card => {
+        const boardString = window.localStorage.getItem('board')
+        if(boardString){
+          const local: {id: string, board: IBoard} = JSON.parse(boardString)
+          local.board.listas.map(lista => {
+            if(lista._id === this.lista._id){
+              lista.cards.push(card)
+              this.lista.cards.push(card)
+            }
+          })
+          window.localStorage.setItem('board',  JSON.stringify({
+            id: local.board._id,
+            board: local.board
+          }))
+        }
+      }, error => {
+        console.log(error)
+      })
       this.toogle()
     }
   }
 
   toogle(){
     this.modal = !this.modal;
+    this.tituloCard = ''
+    this.descricao = ''
     const fundo = document.getElementById('board')
     const listas = document.getElementsByClassName('draggble_list')
     const card = document.getElementsByClassName('draggable_card')
