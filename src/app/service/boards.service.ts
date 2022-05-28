@@ -211,7 +211,6 @@ export class BoardsService {
         }
       })
       res.subscribe(r => {
-        console.log(r)
       }, e=> {
         console.log(e)
         window.localStorage.clear()
@@ -224,6 +223,19 @@ export class BoardsService {
       id: board._id,
       board: board
     }))
+  }
+
+  CriaLabel(titulo: string, cor: string, boardId: string){
+    const token = this.auth.getToken()
+    return this.HttpCliente.post(api.concat(`/label`), {
+      titulo: titulo,
+      cor: cor,
+      boardId: boardId
+    }, {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    })
   }
 
 }
