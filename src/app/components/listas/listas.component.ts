@@ -48,10 +48,7 @@ export class ListasComponent implements OnInit {
     ["#363636", "#fff"],
     ["#000000", "#fff"],
   ]
-
-  teste = "bg-[color:var(--color-list1)]"
-
-  
+    
   constructor(private cardService: CardService, private listaService: ListaService, private boardService: BoardsService) {}
   
   ngOnInit(): void {

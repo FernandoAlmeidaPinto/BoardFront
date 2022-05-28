@@ -8,6 +8,7 @@ import { BoardsComponent } from './boards/boards.component';
 import { ListasComponent } from 'src/app/components/listas/listas.component';
 import { CardComponent } from 'src/app/components/card/card.component';
 import { FormsModule } from '@angular/forms';
+import { ProjetosComponent } from 'src/app/components/projetos/projetos.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { FormsModule } from '@angular/forms';
     BoardComponent,
     BoardsComponent,
     ListasComponent,
-    CardComponent
+    CardComponent,
+    ProjetosComponent
   ],
   imports: [
     CommonModule,

@@ -13,6 +13,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { hydrationMetaReducer } from './store/reducers/hydration.reducer';
 import { FormsModule } from '@angular/forms';
+import { ProjetosComponent } from './components/projetos/projetos.component';
 
 export const metaReducers: MetaReducer[] = [hydrationMetaReducer]
 const reducer = {
@@ -22,7 +23,7 @@ const reducer = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

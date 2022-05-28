@@ -1,81 +1,58 @@
-<div id="board" draggable="false">
-
-  <div draggable="false" class="block w-screen flex justify-between items-center mr-20 sm:px-6 lg:px-8 mt-28 md:mt-2">
-    <h1 class="text-lg leading-6 font-semibold text-gray-900">{{this.board.titulo}}</h1>
-    
+<div class="flex flex-col flex-col-reverse md:flex-row">
+  <div id="projeto" class="md:border-r-2 md:border-black p-2 md:h-screen h-full block w-full">
+    <app-projetos
+    [projetos]="this.board.projetos"
+    ></app-projetos>
   </div>
+  <div id="board" draggable="false" class="h-full">
 
-  <div class="flex h-full">
-    <div class="flex allListas h-full pt-3 " 
-    (dragover)="allowDrop($event)" 
-    (dragenter)="allowDrop($event)" 
-    (drop)="drop($event)">
-      <app-listas
-      class="draggble_list m-2 bg-gray-200 rounded-lg p-2 h-full"
-      id="lista_{{lista._id}}"
-      *ngFor="let lista of this.board.listas"
-      [boardId]="this.board._id"
-      [lista]="lista"
-      [projetos]="this.board.projetos"
-      [labels]="this.board.labels"
-      draggable="true"  
-      (dragstart)="DragStart($event)"
-      (dragover)="allowDrop($event)"
-      (dragenter)="allowDrop($event)"
-      (dragend)="DragEnd($event)"
-      (drop)="dropCard($event)"
-      ></app-listas>
-    </div>
-    <button (click)="toggle()" class="bg-gray-200 rounded-lg mx-5 my-2 w-40 h-10">
-    Add Lista
-    </button>
-    </div>
-  </div>
-
-<!-- Modal Lista -->
-
-<form draggable="false" id="modalLista" class="modal w-1/2" *ngIf="AddListModal" (ngSubmit)="CriarLista()">
-  <div class="flex flex-col">
-    <label for="titulo">Titulo</label>
-    <input id="titulo" type="text" class="titulo input_board" name="titulo" [(ngModel)]="tituloLista" />
-  </div>
-  <div>
-    <button class="button_salvar btn" type="submit">
-      Salvar
-    </button>
-    <button class="button_fechar btn" (click)="toggle()">
-      Fechar
-    </button>
-  </div>
-</form>
-
-<!--
-
-<form class="modal grid grid-cols-6 gap-4" *ngIf="AddCardModal" draggable="false">
-  <div class="flex flex-col col-span-4">
-      <label for="titulo">Titulo</label>
-      <input id="titulo" type="text" [(ngModel)]="tituloCard">
-  </div>
-  <div class="flex flex-col col-span-2">
-      <label for="dono">Dono</label>
+    <div draggable="false" class="block w-screen flex justify-between items-center mr-20 sm:px-6 lg:px-8 mt-28 md:mt-2">
+      <h1 class="text-lg leading-6 font-semibold text-gray-900">{{this.board.titulo}}</h1>
       
-  </div>
-  <div class="flex flex-col col-span-6">
-      <div>
-          <label for="problema" class="block text-sm font-medium text-gray-700">Problema</label>
-          <select
-          [(ngModel)]="this.board.problemas"
-          id="problema" 
-          name="problema" 
-          class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-            <option
-            *ngFor="let problema of this.board.problemas"
-            [value]="problema._id">
-            {{problema.titulo}}
-          </option>
-          </select>
-        </div>
-  </div>
+    </div>
   
-</form>
--->
+    <div class="flex h-full">
+      <div class="flex allListas h-full pt-3 " 
+      (dragover)="allowDrop($event)" 
+      (dragenter)="allowDrop($event)" 
+      (drop)="drop($event)">
+        <app-listas
+        class="draggble_list m-2 bg-gray-200 rounded-lg p-2 h-full"
+        id="lista_{{lista._id}}"
+        *ngFor="let lista of this.board.listas"
+        [boardId]="this.board._id"
+        [lista]="lista"
+        [projetos]="this.board.projetos"
+        [labels]="this.board.labels"
+        draggable="true"  
+        (dragstart)="DragStart($event)"
+        (dragover)="allowDrop($event)"
+        (dragenter)="allowDrop($event)"
+        (dragend)="DragEnd($event)"
+        (drop)="dropCard($event)"
+        ></app-listas>
+      </div>
+      <button (click)="toggle()" class="bg-gray-200 rounded-lg mx-5 my-2 w-40 h-10">
+      Add Lista
+      </button>
+      </div>
+    </div>
+  
+  <!-- Modal Lista -->
+  
+  <form draggable="false" id="modalLista" class="modal w-1/2" *ngIf="AddListModal" (ngSubmit)="CriarLista()">
+    <div class="flex flex-col">
+      <label for="titulo">Titulo</label>
+      <input id="titulo" type="text" class="titulo input_board" name="titulo" [(ngModel)]="tituloLista" />
+    </div>
+    <div>
+      <button class="button_salvar btn" type="submit">
+        Salvar
+      </button>
+      <button class="button_fechar btn" (click)="toggle()">
+        Fechar
+      </button>
+    </div>
+  </form>
+  
+</div>
