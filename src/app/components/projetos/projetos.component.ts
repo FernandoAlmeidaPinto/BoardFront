@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IProjeto } from 'src/app/service/boards.service';
+import { BoardsService, IProjeto } from 'src/app/service/boards.service';
 
 @Component({
   selector: 'app-projetos',
@@ -9,6 +9,7 @@ import { IProjeto } from 'src/app/service/boards.service';
 export class ProjetosComponent implements OnInit {
 
   @Input() projetos: IProjeto[]
+  @Input() boardId: string
 
   modal: boolean = true
 
@@ -40,7 +41,7 @@ export class ProjetosComponent implements OnInit {
 
   borderColor = `0.1rem gray solid`
 
-  constructor() { }
+  constructor(private boardService: BoardsService) { }
 
   ngOnInit(): void {
   }
@@ -48,6 +49,11 @@ export class ProjetosComponent implements OnInit {
   CriaProjetos() {
     if(this.titulo && this.descricao && this.dataInicio && this.dataPrevisao && this.cor){
       this.toggle()
+      this.boardService.CriaProjeto(this.titulo, this.descricao, this.dataInicio, this.dataPrevisao, this.cor, this.boardId).subscribe((res => {
+        this.projetos.push(res)
+      }), err => {
+        console.log(err)
+      })
     }
   }
 

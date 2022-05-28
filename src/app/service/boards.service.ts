@@ -238,4 +238,20 @@ export class BoardsService {
     })
   }
 
+  CriaProjeto(titulo: string, descricao: string, dataInicio: Date, dataPrevisao: Date, cor: string, boardId: string){
+    const token = this.auth.getToken()
+    return this.HttpCliente.post<IProjeto>(api.concat(`/projeto`), {
+      titulo: titulo,
+      descricao: descricao,
+      dataInicio: dataInicio,
+      dataPrevisao: dataPrevisao,
+      cor: cor,
+      boardId: boardId
+    }, {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    })
+  }
+
 }

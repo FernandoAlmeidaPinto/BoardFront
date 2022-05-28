@@ -2,6 +2,7 @@
   <div id="projeto" class="md:border-r-2 md:border-black p-2 md:h-screen h-full block w-full">
     <app-projetos
     [projetos]="this.board.projetos"
+    [boardId]="this.board._id"
     ></app-projetos>
   </div>
   <div id="board" draggable="false" class="h-full">

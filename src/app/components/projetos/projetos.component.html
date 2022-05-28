@@ -8,14 +8,26 @@
     </li>
 </ul>
 <button (click)="toggle()" class="bg-gray-200 rounded-md p-2 m-2"> Criar Projeto </button>
-<form draggable="false" id="modalLista" class="fixed modal w-1/2 pointer-events-auto" [ngStyle]="{border: this.borderColor}" *ngIf="modal" (ngSubmit)="CriaProjetos()">
+<form 
+id="modalLista" 
+class="fixed modal w-1/2 pointer-events-auto" 
+[ngStyle]="{border: this.borderColor}" 
+*ngIf="modal" 
+(ngSubmit)="CriaProjetos()">
     <div class="flex flex-col">
       <label for="titulo">Titulo</label>
       <input id="titulo" type="text" class="titulo input_board" name="titulo" [(ngModel)]="titulo" />
     </div>
     <div class="flex flex-col">
         <label for="descricao">Descricao</label>
-        <textarea name="descricao" id="descricao" cols="30"></textarea>
+        <textarea 
+        name="descricao" 
+        id="descricao" 
+        cols="30"
+        #textbox
+        [value]="descricao" 
+        (change)="descricao = textbox.value"
+        ></textarea>
     </div>
     <div class="flex justify-center">
         <div class="flex flex-col p-1 m-1">
@@ -33,14 +45,19 @@
     <div>
         <label for="cor">Cor</label>
         <div class="flex">
-            <button (click)="SetCor(item)" class="w-5 h-5 m-2 rounded-full" [ngStyle]="{backgroundColor: item}" *ngFor="let item of this.listaProjetolColor"></button>
+            <button 
+            type="button"
+            (click)="SetCor(item)" 
+            class="w-5 h-5 m-2 rounded-full" 
+            [ngStyle]="{backgroundColor: item}" 
+            *ngFor="let item of this.listaProjetolColor"></button>
         </div>
     </div>
     <div>
       <button class="button_salvar btn" type="submit">
         Salvar
       </button>
-      <button class="button_fechar btn" (click)="toggle()">
+      <button type="button" class="button_fechar btn" (click)="toggle()">
         Fechar
       </button>
     </div>
