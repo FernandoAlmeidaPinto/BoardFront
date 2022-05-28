@@ -68,7 +68,6 @@ export class BoardComponent implements OnInit {
       let contexto = ev.target
       let alvo
       let next
-      console.log()
       if(!contexto.className.includes('allListas')){
         alvo = ev.target
         while(!alvo.className.includes('draggble_list m-2')) {
