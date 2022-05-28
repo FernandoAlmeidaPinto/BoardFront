@@ -28,6 +28,9 @@ input:active {
 }
 
 label {
-  padding-top: 0.2rem;
-  padding-bottom: 0.5rem;
+  padding: 1rem 0 0.5rem 0.5rem;
+}
+
+.inputCriaCard {
+  width: 90%;
 }

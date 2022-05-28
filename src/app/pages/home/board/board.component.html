@@ -13,9 +13,11 @@
       <app-listas
       class="draggble_list m-2 bg-gray-200 rounded-lg p-2 h-full"
       id="lista_{{lista._id}}"
-      *ngFor="let lista of this.board.listas" 
+      *ngFor="let lista of this.board.listas"
+      [boardId]="this.board._id"
       [lista]="lista"
       [projetos]="this.board.projetos"
+      [labels]="this.board.labels"
       draggable="true"  
       (dragstart)="DragStart($event)"
       (dragover)="allowDrop($event)"
