@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { UserTypeState } from 'src/app/store/reducers/auth.state';
 
 interface MenuType {
+  nome: string,
+  index: number
+}
+
+interface MenuSuperiorType {
   nome: string,
   href: string
 }
@@ -14,7 +20,7 @@ interface MenuType {
 })
 export class HomeComponent implements OnInit {
 
-  menuSuperior: MenuType[] = [
+  menuSuperior: MenuSuperiorType[] = [
     {nome: 'Inicio', href: '/home'},
     {nome: 'Boards', href: '/home/boards'},
     {nome: 'Time', href: '#'},
@@ -22,20 +28,26 @@ export class HomeComponent implements OnInit {
   ]
 
   menuUser: MenuType[] = [
-    {nome: 'Perfil', href: ''},
-    {nome: 'Configuração', href: ''},
-    {nome: 'Sair', href: ''},
+    {nome: 'Perfil', index: 0},
+    {nome: 'Configuração', index: 1},
+    {nome: 'Sair', index: 2},
   ]
 
   displayMenuUser = 'hidden'
 
-  user: UserTypeState  
+  user: UserTypeState
+  arrayFunction: {[key: string]: () => void} = {
+    "Perfil": () => this.Perfil(),
+    "Configuração": () => this.Config() ,
+    "Sair": () => this.Sair() , 
+  }
 
-  constructor(private store: Store<{ auth: UserTypeState}>) { 
+  constructor(private store: Store<{ auth: UserTypeState}>, private route: Router) { 
     this.store.select('auth').subscribe(e => { this.user = e }) 
   }
   
   ngOnInit(): void {
+    
   }
 
   changeMenu(){
@@ -44,6 +56,19 @@ export class HomeComponent implements OnInit {
     } else {
       this.displayMenuUser = ''
     }
+  }
+
+  private Perfil(){
+    console.log('Perfil')
+  }
+
+  private Config(){
+    console.log('Configuração') 
+  }
+
+  private Sair(){
+    window.localStorage.clear()
+    this.route.navigate(['/login'])
   }
 
 }

@@ -43,10 +43,10 @@
               tabindex="-1">
                 
                 <!-- Active: "bg-gray-100", Not Active: "" -->
-                <a *ngFor="let item of menuUser" href={{item.href}} class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100" 
+                <button *ngFor="let item of menuUser" (click)="this.arrayFunction[item.nome]()" class="flex flex-col w-full px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100" 
                 role="menuitem" 
                 tabindex="-1" 
-                id="user-menu-item-0">{{item.nome}}</a>
+                id="user-menu-item-0">{{item.nome}}</button>
               </div>
             </div>
           </div>
@@ -102,7 +102,7 @@
           </button>
         </div>
         <div class="mt-3 px-2 space-y-1 {{displayMenuUser}}">
-          <a *ngFor="let item of menuUser" routerLink={{item.href}} class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75" role="menuitem" tabindex="-1" id="user-menu-item-0">{{item.nome}}</a>
+          <button *ngFor="let item of menuUser" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75" role="menuitem" tabindex="-1" id="user-menu-item-0">{{item.nome}}</button>
         </div>
       </div>
     </div>
