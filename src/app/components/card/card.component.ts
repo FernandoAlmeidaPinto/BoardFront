@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BoardsService, ICard, ILabel, IProjeto } from 'src/app/service/boards.service';
+import { BoardsService, ICard, IProjeto } from 'src/app/service/boards.service';
 
 @Component({
   selector: 'app-card',
