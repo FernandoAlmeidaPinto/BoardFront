@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BoardsService, IProjeto } from 'src/app/service/boards.service';
+import { socket } from 'src/app/service/socket';
 
 @Component({
   selector: 'app-projetos',
@@ -44,6 +45,15 @@ export class ProjetosComponent implements OnInit {
   constructor(private boardService: BoardsService) { }
 
   ngOnInit(): void {
+    socket.on("NotificaCriacaoProjeto", projeto => {
+      console.log(projeto)
+      const local = this.boardService.GetBoardLocalStorare()
+      if(local){
+        local.board.projetos.push(projeto)
+        this.projetos.push(projeto)
+        this.boardService.AtualizaLocalStorage(local.board)
+      }
+    })
   }
 
   CriaProjetos() {
