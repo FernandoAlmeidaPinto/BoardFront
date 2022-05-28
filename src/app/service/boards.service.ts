@@ -225,6 +225,15 @@ export class BoardsService {
     }))
   }
 
+  GetBoardLocalStorare(){
+    const boardString = window.localStorage.getItem('board')
+    if(boardString){
+      const local: {id: string, board: IBoard} = JSON.parse(boardString)
+      return local
+    }
+    return null
+  }
+
   CriaLabel(titulo: string, cor: string, boardId: string){
     const token = this.auth.getToken()
     return this.HttpCliente.post(api.concat(`/label`), {
