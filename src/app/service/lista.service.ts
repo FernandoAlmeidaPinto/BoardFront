@@ -32,12 +32,8 @@ export class ListaService {
       }
     })
     res.subscribe(res => {
-      console.log('Lista Deletada')
       }, err => {
         console.error(err)
       })
   }
-
-  
-
 }
